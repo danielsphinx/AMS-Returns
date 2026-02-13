@@ -8,6 +8,7 @@ IN_DIR, OUT_DIR = BASE / "in", BASE / "out"
 
 # ====== ORDER LOG ======
 ORDER_LOG = Path(r"G:\Automation Google Drive\Order Exports\Completed Orders\AMS\Completed Orders With Profit.csv")
+RECENT_MONTHS = 4
 
 # ====== COLUMN NAMES ======
 OID, ODATE, OUPC = "Order ID", "Date Time Ordered", "Combined ISBN X Quantity + Add Ons"
@@ -74,6 +75,9 @@ thank_you_series = df[OTHANK] if OTHANK in df.columns else pd.Series("", index=d
 df[OID] = thank_you_series.where(thank_you_series.astype(str).str.strip().ne(""), order_id_series).map(BR)
 
 dtp = pd.to_datetime(df.get(ODATE, ""), errors="coerce")  # keep local-like, don't force UTC
+cutoff_ts = pd.Timestamp.now() - pd.DateOffset(months=RECENT_MONTHS)
+df = df[dtp.ge(cutoff_ts)].copy()
+dtp = pd.to_datetime(df.get(ODATE, ""), errors="coerce")
 df["_order_dt"] = dtp.dt.strftime("%Y-%m-%d %H:%M:%S").fillna("")
 
 rows = []
