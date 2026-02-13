@@ -1,0 +1,22 @@
+﻿# Data exports
+*.csv
+# Python
+__pycache__/
+*.py[cod]
+# Virtual envs
+.venv/
+venv/
+# IDE
+.idea/
+# Secrets
+.env
+# OS
+.DS_Store
+Thumbs.db
+out/
+__pycache__/
+*.pyc
+*.log
+.env
+.venv/
+
