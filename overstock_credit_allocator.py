@@ -2,7 +2,7 @@ import pandas as pd, re
 from pathlib import Path
 from html import escape
 
-# ====== BASE = script folder ======
+# ====== BASE = script folder ========
 BASE = Path(__file__).resolve().parent
 IN_DIR, OUT_DIR = BASE / "in", BASE / "out"
 
